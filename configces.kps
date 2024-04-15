@@ -1,0 +1,74 @@
+version: v8.9
+
+# General
+overlay: true
+trackAllKeys: true
+trackAllButtons: true
+updateRate: 5
+enableKeyModifierCombinations: false
+windowed: false
+
+frame:
+  x: 1167
+  y: 37
+
+theme:
+  customColors: false
+  foreground: #00FFFF
+  background: #000000
+
+commands:
+  resetStats: unbound
+  exit: 1114134
+  resetTotals: unbound
+  hide: 1114133
+  pause: 1114132
+  reload: unbound
+
+layout:
+  cellSize: 22
+  borderOffset: 2
+
+statsSaving:
+  autoSave: false
+  autoDestination: C:\Users\82082\kpsstats
+  autoFormat: 'kps stats' yyyy-MM-dd HH.mm.ss'.kpsstats'
+  autoInterval: 600000
+  saveOnExit: true
+  loadOnLaunch: true
+  saveFile: H:\KeysPerSecond-8.9\statszz.kpsstats
+
+graphs:
+
+panels:
+  - type: max
+    name: MAX
+    x: -1
+    y: 0
+    width: 2
+    height: 3
+    mode: VERTICAL
+  - type: avg
+    name: AVG
+    x: -1
+    y: 0
+    width: 2
+    height: 3
+    mode: VERTICAL
+    precision: 0
+  - type: current
+    name: KPS
+    x: -1
+    y: 0
+    width: 2
+    height: 3
+    mode: VERTICAL
+  - type: total
+    name: TOT
+    x: -1
+    y: 0
+    width: 4
+    height: 3
+    mode: VERTICAL
+
+keys:

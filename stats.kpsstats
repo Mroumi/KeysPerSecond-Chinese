@@ -1,0 +1,16 @@
+version: v8.9
+
+# General
+total: 17
+average: 2.537313432835821
+maximum: 8
+seconds: 67
+previous: 0
+current: 0
+
+# Keys
+keys:
+  - [keycode=1048608,count=6,alt=false,ctrl=false,shift=false,name="-"]
+  - [keycode=1048609,count=7,alt=false,ctrl=false,shift=false,name="-"]
+  - [keycode=1048612,count=3,alt=false,ctrl=false,shift=false,name="-"]
+  - [keycode=1048613,count=1,alt=false,ctrl=false,shift=false,name="-"]

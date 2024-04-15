@@ -1,0 +1,16 @@
+version: v8.9
+
+# General
+total: 0
+average: 0.0
+maximum: 0
+seconds: 0
+previous: 0
+current: 0
+
+# Keys
+keys:
+  - [keycode=1048608,count=0,alt=false,ctrl=false,shift=false,name="-"]
+  - [keycode=1048609,count=0,alt=false,ctrl=false,shift=false,name="-"]
+  - [keycode=1048612,count=0,alt=false,ctrl=false,shift=false,name="-"]
+  - [keycode=1048613,count=0,alt=false,ctrl=false,shift=false,name="-"]

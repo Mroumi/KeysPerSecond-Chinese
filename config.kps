@@ -1,0 +1,91 @@
+version: v8.9
+
+# General
+overlay: false
+trackAllKeys: false
+trackAllButtons: false
+updateRate: 100
+enableKeyModifierCombinations: false
+windowed: false
+
+frame:
+  x: 1306
+  y: 396
+
+theme:
+  customColors: false
+  foreground: #00FFFF
+  background: #000000
+
+commands:
+  resetStats: unbound
+  exit: 1114134
+  resetTotals: unbound
+  hide: 1114133
+  pause: 1114132
+  reload: unbound
+
+layout:
+  cellSize: 22
+  borderOffset: 2
+
+statsSaving:
+  autoSave: false
+  autoDestination: C:\Users\82082\kpsstats
+  autoFormat: 'kps stats' yyyy-MM-dd HH.mm.ss'.kpsstats'
+  autoInterval: 600000
+  saveOnExit: false
+  loadOnLaunch: false
+  saveFile: C:\Users\82082\stats.kpsstats
+
+graphs:
+
+panels:
+  - type: current
+    name: KPS
+    x: 0
+    y: 3
+    width: 4
+    height: 3
+    mode: VERTICAL
+  - type: total
+    name: TOT
+    x: 4
+    y: 3
+    width: 4
+    height: 3
+    mode: VERTICAL
+
+keys:
+  - keycode: 1048608
+    name: D
+    x: 0
+    y: 0
+    width: 2
+    height: 3
+    mode: VERTICAL
+    visible: true
+  - keycode: 1048609
+    name: F
+    x: 2
+    y: 0
+    width: 2
+    height: 3
+    mode: VERTICAL
+    visible: true
+  - keycode: 1048612
+    name: J
+    x: 4
+    y: 0
+    width: 2
+    height: 3
+    mode: VERTICAL
+    visible: true
+  - keycode: 1048613
+    name: K
+    x: 6
+    y: 0
+    width: 2
+    height: 3
+    mode: VERTICAL
+    visible: true

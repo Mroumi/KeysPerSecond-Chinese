@@ -1,0 +1,142 @@
+plugins{
+	id 'eclipse'
+	id 'java'
+	id 'application'
+	id 'maven-publish'
+	id 'com.github.johnrengelman.shadow' version '7.1.2'
+	id 'edu.sc.seis.launch4j' version '2.5.1'
+	id 'com.github.spotbugs' version '5.0.14'
+	id 'jacoco'
+}
+
+sourceSets{
+	main{
+		java.srcDirs = ['src']
+		resources.srcDirs = ['resources']
+	}
+
+	test{
+		java.srcDirs = ['test']
+		resources.srcDirs = ['test']
+	}
+}
+
+dependencies{
+	//Util
+	implementation 'dev.roanh.util:util:2.5'
+	
+	//JNativeHook
+	implementation 'com.github.kwhat:jnativehook:2.2.2'
+	
+	//Testing
+	testImplementation(platform('org.junit:junit-bom:5.10.0'))
+	testImplementation('org.junit.jupiter:junit-jupiter')
+}
+
+repositories{
+	//Local cache
+	if(project.hasProperty("nexusPublic")){
+		maven{
+			allowInsecureProtocol = true
+			url "$nexusPublic"
+		}
+	}
+	mavenCentral()
+}
+
+version = findProperty("refName") ?: 'SNAPSHOT'
+if(version.matches("v\\d+\\.\\d+")){
+	version = version.substring(1)
+}
+
+eclipse.classpath.downloadSources = true
+eclipse.classpath.downloadJavadoc = true
+compileJava.options.encoding = 'UTF-8'
+sourceCompatibility = 1.8
+javadoc.options.memberLevel = JavadocMemberLevel.PRIVATE
+group = 'dev.roanh.kps'
+ext.artifact = 'keyspersecond'
+shadowJar.archiveName = 'KeysPerSecond-v' + version + '.jar'
+application.mainClassName = 'dev.roanh.kps.Main'
+
+test{
+	useJUnitPlatform()
+	dependsOn 'cleanTest'
+
+	testLogging{
+		events "passed", "skipped", "failed"
+	}
+}
+
+spotbugs{
+	showProgress = true
+	effort = 'max'
+	reportLevel = 'low'
+	excludeFilter = file("$rootDir/exclude.xml")
+}
+
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask){
+	reports{
+		html{
+			required = true
+			outputLocation = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+			stylesheet = 'fancy-hist.xsl'
+		}
+	}
+}
+
+publishing{
+	publications{
+		mavenJava(MavenPublication){
+			from components.java
+			artifactId = project.artifact
+
+			pom{
+				name = project.eclipse.project.name
+				description = 'Program to measure the keys pressed per second'
+				url = 'https://github.com/RoanH/KeysPerSecond'
+				licenses{
+					license{
+						name = 'GNU General Public License v3.0'
+						url = 'https://www.gnu.org/licenses/gpl-3.0.txt'
+					}
+				}
+				developers{
+					developer{
+						id = 'RoanH'
+						name = 'Roan Hofland'
+						email = 'roan@roanh.dev'
+					}
+				}
+				scm{
+					connection = 'scm:git:git@github.com:RoanH/KeysPerSecond.git'
+					developerConnection = 'scm:git:git@git.roanh.dev:roan/KeysPerSecond.git'
+					url = 'https://github.com/RoanH/KeysPerSecond'
+				}
+			}
+		}
+	}
+}
+
+shadowJar{
+	into("META-INF/maven/$project.group/$project.artifact"){
+		from{
+			generatePomFileForMavenJavaPublication
+		}
+		rename ".*", "pom.xml"
+	}
+}
+
+launch4j{
+	jarTask = project.tasks.shadowJar
+	mainClassName = application.mainClassName
+	icon = "${projectDir}/kps.ico"
+	jreMinVersion = project.sourceCompatibility
+	bundledJrePath = "%JAVA_HOME%"
+	outfile = rootProject.name + '-v' + project.version + '.exe'
+	fileDescription = "KeysPerSecond"
+	productName = rootProject.name
+	version = project.version
+	textVersion = project.version
+	copyright = "Roan Hofland"
+}
